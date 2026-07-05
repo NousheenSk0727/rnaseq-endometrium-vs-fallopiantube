@@ -1,0 +1,93 @@
+# End-to-End Bulk RNA-seq Pipeline: Differential Expression and Biomarker Discovery in Endometrium and Fallopian Tube
+
+## Overview
+A complete bulk RNA-seq analysis pipeline comparing gene expression between normal endometrium and fallopian tube tissues across 6 biological samples (3 per tissue). The analysis covers quality control, alignment, quantification, differential expression, pathway enrichment and machine learning based biomarker exploration — establishing a molecular baseline relevant to endometriosis research.
+
+
+## Background
+Endometriosis affects millions of women worldwide yet its molecular mechanisms remain poorly understood. Understanding normal gene expression differences between endometrium and fallopian tube provides a molecular baseline for future studies investigating how endometrial tissue survives and grows outside the uterus.
+
+**Research Question:** What genes are differentially expressed between normal endometrium and fallopian tube — and can these differences identify tissue specific biomarker candidates?
+
+
+## Data
+- 6 biological samples — 3 endometrium, 3 fallopian tube
+- Input: HTSeq count files from paired-end RNA-seq
+- Organism: Homo sapiens (hg38)
+- Total genes tested: 77,311
+
+
+## Pipeline
+
+
+## Tools and Libraries
+| Tool | Purpose |
+|---|---|
+| FastQC, Trim Galore | Quality control and trimming |
+| HISAT2 | Alignment to human reference genome (hg38) |
+| HTSeq | Gene quantification |
+| DESeq2 | Normalization and rlog transformation |
+| edgeR | Differential expression analysis |
+| clusterProfiler | GO enrichment analysis |
+| randomForest, caret | ML biomarker exploration |
+| ggplot2, pheatmap | Visualization |
+| R | All downstream analysis |
+
+
+## Key Results
+
+### Exploratory Data Analysis
+- PCA confirmed clean tissue separation — PC1 explained 77% of variance by tissue type alone
+- Sample distance heatmap and MDS plot independently validated tissue clustering
+- Gene expression heatmap revealed MMP gene cluster highly active in endometrium
+
+### Differential Expression
+- 1,601 significant DEGs identified (FDR < 0.05)
+- 455 upregulated in endometrium, 1,117 upregulated in fallopian tube
+- **HOXA11** — top statistical biomarker candidate (logFC = 10, FDR = 6.8e-07, 1024x higher in endometrium)
+- **FOLR1** — top fallopian tube specific gene (logFC = -8.01, 256x higher in fallopian tube)
+
+### GO Enrichment
+- Dominant biological process — ciliary movement (102 genes, p.adjust = 1.8e-55)
+- Microtubule based movement also significantly enriched (116 genes)
+- Biologically validates results — fallopian tube is heavily ciliated to move eggs toward uterus
+- Hypothesized pathways (apoptosis, hormonal regulation) were not statistically enriched
+
+### ML Biomarker Exploration
+- ML (Random Forest + LOOCV) applied as an exploratory exercise — not a primary analysis method
+- Investigated whether ML importance agrees with statistical DEG ranking
+- 100% classification accuracy — likely reflects overfitting due to small sample size (n=6)
+- Results are exploratory only — validation with larger datasets required
+
+
+## Plots
+| Plot | Description |
+|---|---|
+| PCA.png | Sample separation by tissue type |
+| Pheatmap.png | Sample distance heatmap |
+| Geneheatmap.png | Top variable genes heatmap |
+| Volcanoplot.png | DEG overview with top genes labeled |
+| MDSplot.png | edgeR sample clustering |
+| BCV.png | Biological coefficient of variation |
+| smear.png | Smear plot highlighting significant DEGs |
+| GO.png | GO enrichment dotplot |
+| ExpressionPlot.png | HOXA11 expression — top endometrium biomarker |
+| FTbiomarker.png | FOLR1 expression — top fallopian tube biomarker |
+| RTbiomarker.png | Random Forest variable importance plot |
+
+
+
+## Limitations
+- ML was applied as an exploratory exercise — with only 6 samples results are unreliable and should not be used for biological conclusions
+- Normal healthy tissues only — no endometriosis patient samples included
+- Findings represent a molecular baseline — not direct evidence of disease mechanisms
+- Future validation in larger endometriosis patient cohorts is needed
+
+
+
+## Repository Structure
+
+
+
+## Author
+Nousheen — M.S. Bioinformatics and Data Science, University of Delaware
